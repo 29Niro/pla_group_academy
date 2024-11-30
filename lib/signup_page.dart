@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Login to your \naccount",
+                "Signup to your \naccount",
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               Container(
@@ -48,6 +48,18 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
+              TextField(
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock),
+                    labelText: "Confirm Password",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    suffixIcon: const Icon(Icons.visibility)),
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
               Row(
                 children: [
                   Checkbox(value: false, onChanged: (value) {}),
@@ -68,7 +80,7 @@ class LoginPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0))),
                 child: const Text(
-                  "Login",
+                  "Signup",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -86,7 +98,7 @@ class LoginPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0))),
                 child: const Text(
-                  "Login with Google",
+                  "Signup with Google",
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
@@ -97,13 +109,13 @@ class LoginPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account? "),
+                    const Text("Already have an account? "),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, "/signup");
+                        Navigator.pushNamed(context, "/login");
                       },
                       child: const Text(
-                        "Register",
+                        "Login",
                         style: TextStyle(color: Colors.blue),
                       ),
                     )

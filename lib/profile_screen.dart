@@ -12,9 +12,14 @@ class ProfileScreen extends StatelessWidget {
           "Profile",
           style: TextStyle(color: Colors.white),
         ),
-        leading: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
       ),
       body: SizedBox(
