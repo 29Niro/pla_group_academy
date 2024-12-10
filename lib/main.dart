@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pla_group_academy/custom_listview.dart';
 import 'package:pla_group_academy/horizontal_listview.dart';
+import 'package:pla_group_academy/loading_listview.dart';
 import 'package:pla_group_academy/login_page.dart';
 import 'package:pla_group_academy/my_home_page.dart';
 import 'package:pla_group_academy/profile_screen.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: LoginPage(),
-      initialRoute: "/custom-list",
+      initialRoute: "/loading-list",
       routes: {
         '/': (context) => const MyHomePage(),
         '/profile': (context) => const ProfileScreen(),
@@ -29,8 +30,9 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignupPage(),
         '/register': (context) => const RegistrationForm(),
         '/simple-list': (context) => const SimpleListview(),
-        '/custom-list': (context) => const CustomListview(),
-        '/horizontal-list': (context) => const HorizontalListview()
+        '/custom-list': (context) => CustomListview(),
+        '/horizontal-list': (context) => const HorizontalListview(),
+        '/loading-list': (context) => const LoadingListview(),
       },
     );
   }
