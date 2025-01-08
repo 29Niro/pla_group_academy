@@ -1,7 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  void _signup() async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      print(credential);
+      //Navigate
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +54,7 @@ class SignupPage extends StatelessWidget {
                 height: 32.0,
               ),
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.email),
                   labelText: "Email",
@@ -37,6 +67,7 @@ class SignupPage extends StatelessWidget {
                 height: 16.0,
               ),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock),
                     labelText: "Password",
@@ -70,9 +101,7 @@ class SignupPage extends StatelessWidget {
                 height: 16.0,
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/");
-                },
+                onPressed: _signup,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     minimumSize: const Size(350, 50),

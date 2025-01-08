@@ -9,8 +9,14 @@ import 'package:pla_group_academy/registration_form.dart';
 import 'package:pla_group_academy/settings_page.dart';
 import 'package:pla_group_academy/signup_page.dart';
 import 'package:pla_group_academy/simple_listview.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // home: LoginPage(),
-      initialRoute: "/loading-list",
+      initialRoute: "/signup",
       routes: {
         '/': (context) => const MyHomePage(),
         '/profile': (context) => const ProfileScreen(),

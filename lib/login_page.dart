@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  void _login() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      print(credential);
+      //Navigation
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +49,7 @@ class LoginPage extends StatelessWidget {
                 height: 32.0,
               ),
               TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.email),
                   labelText: "Email",
@@ -37,6 +62,7 @@ class LoginPage extends StatelessWidget {
                 height: 16.0,
               ),
               TextField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock),
                     labelText: "Password",
@@ -58,9 +84,7 @@ class LoginPage extends StatelessWidget {
                 height: 16.0,
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/");
-                },
+                onPressed: _login,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     minimumSize: const Size(350, 50),
